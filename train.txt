@@ -1,1 +1,2 @@
-/home/online/Det/SmallObjectAugment/img/2018-11-03_07_45_09_1.jpg
+./break/img00000.jpg
+./break/img00001.jpg
