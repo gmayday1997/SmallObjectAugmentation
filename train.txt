@@ -1,2 +1,2 @@
-./break/img00000.jpg
-./break/img00001.jpg
+./background/img00000.jpg
+./background/img00001.jpg
