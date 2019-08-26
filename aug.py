@@ -125,8 +125,8 @@ def copysmallobjects2(image_dir, label_dir, save_base_dir, small_img_dir):
             cl, bbox_left, bbox_top, bbox_right, bbox_bottom = new_bbox[0], new_bbox[1], new_bbox[2], new_bbox[3], \
                                                                new_bbox[4]
             #roi = GaussianBlurImg(roi)  # 高斯模糊
-            width, height, channels = roi.shape
-            center = (int(height / 2), int(width / 2))
+            height, width, channels = roi.shape
+            center = (int(width / 2),int(height / 2))
             #ran_point = (int((bbox_top+bbox_bottom)/2),int((bbox_left+bbox_right)/2))
             mask = 255 * np.ones(roi.shape, roi.dtype)
 
@@ -139,6 +139,9 @@ def copysmallobjects2(image_dir, label_dir, save_base_dir, small_img_dir):
 
                 # 泊松融合
                 #image = cv2.seamlessClone(roi, image, mask, ran_point, cv2.NORMAL_CLONE)
+                #print(str(bbox_bottom-bbox_top) + "|" + str(bbox_right-bbox_left))
+                #print(roi.shape)
+                #print(mask.shape)
                 image[bbox_top:bbox_bottom, bbox_left:bbox_right] = cv2.seamlessClone(roi, image[bbox_top:bbox_bottom, bbox_left:bbox_right],
                                                                                       mask, center, cv2.NORMAL_CLONE)
                 all_boxes.append(new_bbox)

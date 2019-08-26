@@ -171,8 +171,8 @@ def sampling_new_bbox_center_point2(img_shape, bbox):
     search_x_left, search_y_left, search_x_right, search_y_right = width * 0.55 , height * 0.5 , \
                                                                    width * 0.9 , height * 0.95
     '''
-    search_x_left, search_y_left, search_x_right, search_y_right = width * 0.3 , height * 0.5 , \
-                                                                   width * 0.95 , height * 0.95
+    search_x_left, search_y_left, search_x_right, search_y_right = width * 0.35 , height * 0.6 , \
+                                                                   width * 1 , height * 0.95
 
     return [search_x_left, search_y_left, search_x_right, search_y_right]
 
@@ -182,12 +182,17 @@ def random_add_patches2(bbox_img, rescale_boxes, shape, paste_number, iou_thresh
     for rescale_bbox in rescale_boxes:
         temp.append(rescale_bbox)
     bbox_h, bbox_w, bbox_c = bbox_img
+    img_h,img_w,img_c = shape
     center_search_space = sampling_new_bbox_center_point2(shape, bbox_img)  # 选取生成随机点区域
     success_num = 0
     new_bboxes = []
     cl = 1
     while success_num < paste_number:
         new_bbox_x_center, new_bbox_y_center = norm_sampling(center_search_space)   # 随机生成点坐标
+        if new_bbox_x_center-0.5*bbox_w < 0 or new_bbox_x_center+0.5*bbox_w > img_w:
+            continue
+        if new_bbox_y_center-0.5*bbox_h < 0 or new_bbox_y_center+0.5*bbox_h > img_h:
+            continue
         new_bbox_x_left, new_bbox_y_left, new_bbox_x_right, new_bbox_y_right = new_bbox_x_center - 0.5 * bbox_w, \
                                                                                new_bbox_y_center - 0.5 * bbox_h, \
                                                                                new_bbox_x_center + 0.5 * bbox_w, \

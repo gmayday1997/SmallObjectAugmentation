@@ -20,8 +20,10 @@ random.shuffle(small_imgs_dir)
 
 for image_dir, label_dir in tqdm(zip(imgs_dir, labels_dir)):
     small_img = []
-    for x in range(10):
+    for x in range(8):
         if small_imgs_dir == []:
-            exit()
+            #exit()
+            small_imgs_dir = [f.strip() for f in open(join(base_dir,'small.txt')).readlines()]
+            random.shuffle(small_imgs_dir)
         small_img.append(small_imgs_dir.pop())
     am.copysmallobjects2(image_dir, label_dir, save_base_dir,small_img)
